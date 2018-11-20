@@ -43,8 +43,9 @@
       test.setStyle(new ol.style.Style({
           image: new ol.style.Icon(/** @type {module:ol/style/Icon~Options} */ ({
             crossOrigin: 'anonymous',
-            size: new ol.size.Size(20, 20),
-            src: 'egg5.png'
+            size: [50, 50],
+            src: 'egg5.png',
+            scale: 0.5
           }))
         }));
 
