@@ -37,7 +37,7 @@
     <script type="text/javascript">
 
       var test = new ol.Feature({
-        geometry: new ol.geom.Point(fromLonLat([24.05, 60.23]))
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([24.05, 60.23]))
       });
 
       test.setStyle(new ol.style.Style({
