@@ -34,7 +34,7 @@
 
       var eggs = urlParams.getAll('egg');
       var eggFeatures = [];
-      for (var i = 0; i < eggs.length; i++;) {
+      for (var i = 0; i < eggs.length; i++) {
           var params = eggs[i].split(';'));
           eggFeatures.push(new ol.Feature({ geometry: new ol.geom.Point(ol.proj.fromLonLat([params[1], params[2]])) }));
           var eggtier = 'egg5.png';
