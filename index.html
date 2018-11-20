@@ -9,10 +9,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <style>
-      .map {
-        height: 700px;
-        width: 100%;
-      }
+//      .map {
+//        height: 700px;
+//        width: 100%;
+//      }
       #map {
         position: relative;
       }
@@ -100,6 +100,7 @@
       map.on('click', function(evt) {
         var feature = map.forEachFeatureAtPixel(evt.pixel,
           function(feature) {
+console.log(feature);
             return feature;
           });
         if (feature) {
