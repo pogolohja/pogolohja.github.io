@@ -36,35 +36,25 @@
     <div id="map" class="map"></div>
     <script type="text/javascript">
 
-
-
-      var iconFeature = new ol.Feature({
-        geometry: new ol.geom.Point([24.05, 60.23]),
-        name: 'Test',
-        population: 4000,
-        rainfall: 500
+      var test = new ol.Feature({
+        geometry: new ol.geom.Point(fromLonLat([24.05, 60.23]))
       });
 
-      var iconStyle = new ol.style({
-        image: new ol.style(/** @type {module:ol/style/Icon~Options} */ ({
-          anchor: [0.5, 46],
-          anchorXUnits: 'fraction',
-          anchorYUnits: 'pixels',
-          src: 'data/icon.png'
-        }))
+      test.setStyle(new ol.style.Style({
+          image: new ol.style.Icon(/** @type {module:ol/style/Icon~Options} */ ({
+            color: '#8959A8',
+            crossOrigin: 'anonymous',
+            src: 'data/dot.png'
+          }))
+        }));
+
+      var vectorSource = new ol.source.VectorSource({
+        features: [test]
       });
 
-    iconFeature.setStyle(iconStyle);
-
-    var vectorSource = new ol.source.Vector({
-      features: [iconFeature]
-    });
-
-    var vectorLayer = new ol.layer.Vector({
-      source: vectorSource
-    });
-
-
+      var vectorLayer = new ol.Vector({
+        source: vectorSource
+      });
 
 
       var map = new ol.Map({
