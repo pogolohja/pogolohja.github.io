@@ -1,24 +1,33 @@
-<html><body>
-  <div id="mapdiv"></div>
-  <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
-  <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css">
-  <script>
-    map = new OpenLayers.Map("mapdiv");
-    map.addLayer(new OpenLayers.Layer.OSM());
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Simple Map</title>
+      <link rel="stylesheet" href="https://openlayers.org/en/v5.3.0/css/ol.css" type="text/css">
+      <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+      <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
 
-    var lonLat = new OpenLayers.LonLat( -0.1279688 ,51.5077286 )
-          .transform(
-            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-            map.getProjectionObject() // to Spherical Mercator Projection
-          );
+    </head>
+    <body>
+      <div id="map" class="map"></div>
+      <script>
+        import Map from 'ol/Map.js';
+        import View from 'ol/View.js';
+        import TileLayer from 'ol/layer/Tile.js';
+        import OSM from 'ol/source/OSM.js';
 
-    var zoom=16;
 
-    var markers = new OpenLayers.Layer.Markers( "Markers" );
-    map.addLayer(markers);
-
-    markers.addMarker(new OpenLayers.Marker(lonLat));
-
-    map.setCenter (lonLat, zoom);
-  </script>
-</body></html>
+        var map = new Map({
+          layers: [
+            new TileLayer({
+              source: new OSM()
+            })
+          ],
+          target: 'map',
+          view: new View({
+            center: [0, 0],
+            zoom: 2
+          })
+        });
+      </script>
+    </body>
+  </html>
