@@ -15,10 +15,10 @@
 
     <h2 id="header"></h2>
 
+    <div id="map" class="map"></div>
     <script type="text/javascript">
 
       const urlParams = new URLSearchParams(window.location.search);
-      const myParam = urlParams.get('myParam');
 
       function getParameterByName(name, url) {
         if (!url) url = window.location.href;
@@ -30,26 +30,27 @@
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
       }
 
-      document.getElementById("header").innerHTML = getParameterByName('foo');
+//      document.getElementById("header").innerHTML = getParameterByName('foo');
 
-    </script>
-    <div id="map" class="map"></div>
-    <script type="text/javascript">
-
-      var test = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([24.05, 60.23]))
-      });
-
-      test.setStyle(new ol.style.Style({
-          image: new ol.style.Icon(/** @type {module:ol/style/Icon~Options} */ ({
-            crossOrigin: 'anonymous',
-            src: 'egg5.png',
-            scale: 0.5
-          }))
-        }));
+      var eggs = urlParams.getAll('egg');
+      var eggFeatures = [];
+      for (var i = 0; i < eggs.length; i++;) {
+          var params = eggs[i].split(';'));
+          eggFeatures.push(new ol.Feature({ geometry: new ol.geom.Point(ol.proj.fromLonLat([params[1], params[2]])) }));
+          var eggtier = 'egg5.png';
+          if ((params[0] == '1') || (params[0] == '2')) { eggtier = 'egg12.png'; }
+          if ((params[0] == '3') || (params[0] == '4')) { eggtier = 'egg34.png'; }
+          eggFeatures[i].setStyle(new ol.style.Style({
+              image: new ol.style.Icon(/** @type {module:ol/style/Icon~Options} */ ({
+                crossOrigin: 'anonymous',
+                src: eggtier,
+                scale: 0.5
+              }))
+            }));
+      }
 
       var vectorSource = new ol.source.Vector({
-        features: [test]
+        features: eggFeatures
       });
 
       var vectorLayer = new ol.layer.Vector({
