@@ -9,10 +9,30 @@
       }
     </style>
     <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
-    <title>OpenLayers example</title>
+    <title>PoGo Lohja field research tasks</title>
   </head>
   <body>
-    <h2>My Map</h2>
+
+    <h2 id="header"></h2>
+
+    <script type="text/javascript">
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const myParam = urlParams.get('myParam');
+
+      function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+          results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+      }
+
+      document.getElementById("header").innerHTML = getParameterByName('foo');
+
+    </script>
     <div id="map" class="map"></div>
     <script type="text/javascript">
       var map = new ol.Map({
@@ -24,7 +44,7 @@
         ],
         view: new ol.View({
           center: ol.proj.fromLonLat([24.02, 60.22]),
-          zoom: 8
+          zoom: 10
         })
       });
     </script>
