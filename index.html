@@ -100,9 +100,9 @@
       map.on('click', function(evt) {
         var feature = map.forEachFeatureAtPixel(evt.pixel,
           function(feature) {
-console.log(feature);
             return feature;
           });
+          console.log(feature);
         if (feature) {
           var coordinates = feature.getGeometry().getCoordinates();
           popup.setPosition(coordinates);
