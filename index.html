@@ -24,7 +24,7 @@
 
     <h2 id="header"></h2>
 
-    <div id="map" class="map"><div id="popup"></div></div>
+    <div id="map" class="map"><div id="popup1"></div><div id="popup2"></div></div>
     <script type="text/javascript">
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -112,42 +112,67 @@
         })
       });
 
-      var element = document.getElementById('popup');
+      var popupelement1 = document.getElementById('popup1');
+      var popupelement2 = document.getElementById('popup2');
 
-      var popup = new ol.Overlay({
-        element: element,
+      var popup1 = new ol.Overlay({
+        element: popupelement1,
         positioning: 'bottom-center',
         stopEvent: false,
         offset: [0, 0]
       });
-      map.addOverlay(popup);
+      map.addOverlay(popup1);
+
+      var popup2 = new ol.Overlay({
+        element: popupelement2,
+        positioning: 'bottom-center',
+        stopEvent: false,
+        offset: [0, 0]
+      });
+      map.addOverlay(popup2);
+
+      var iter = 1;
 
       // display popup on click
       map.on('click', function(evt) {
-        $(element).popover('hide');
         var feature = map.forEachFeatureAtPixel(evt.pixel,
           function(feature) {
             return feature;
           });
         if (feature) {
           var coordinates = feature.getGeometry().getCoordinates();
-          popup.setPosition(coordinates);
-          $(element).popover({
+
+          if (iter == 1) {
+            $(popupelement2).popover('destory');
+            var thispopup = popup1;
+            var thiselement = popupelement1;
+            iter = 2;
+          } else {
+            $(popupelement1).popover('destory');
+            var thispopup = popup2;
+            var thiselement = popupelement2;
+            iter = 1;
+          }
+          thispopup.setPosition(coordinates);
+          $(thiselement).popover({
             placement: 'top',
             html: true,
             title: feature.get('title'),
             content: feature.get('text')
           });
-          $(element).popover('show');
+          $(thiselement).popover('show');
         } else {
-          $(element).popover('destroy');
+          $(popupelement1element).popover('destroy');
+          $(popupelement2element).popover('destroy');
+          iter = 1;
         }
       });
 
       // change mouse cursor when over marker
       map.on('pointermove', function(e) {
         if (e.dragging) {
-          $(element).popover('destroy');
+          $(popupelement1).popover('destroy');
+          $(popupelement2).popover('destroy');
           return;
         }
         var pixel = map.getEventPixel(e.originalEvent);
