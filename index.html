@@ -103,8 +103,8 @@
           new ol.layer.Tile({
             source: new ol.source.OSM()
           }),
-          eggLayer,
-          dustLayer
+          dustLayer,
+          eggLayer
         ],
         view: new ol.View({
           center: ol.proj.fromLonLat([24.05, 60.23]),
@@ -124,6 +124,7 @@
 
       // display popup on click
       map.on('click', function(evt) {
+        $(element).popover('destroy');
         var feature = map.forEachFeatureAtPixel(evt.pixel,
           function(feature) {
             return feature;
@@ -138,9 +139,6 @@
             content: feature.get('text')
           });
           $(element).popover('show');
-        } else {
-          $(element).popover('destroy');
-        }
       });
 
       // change mouse cursor when over marker
