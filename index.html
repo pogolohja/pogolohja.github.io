@@ -103,7 +103,7 @@
             return feature;
           });
           console.log(feature);
-        if (feature) {
+//        if (feature) {
           var coordinates = feature.getGeometry().getCoordinates();
           popup.setPosition(coordinates);
           $(element).popover({
@@ -112,9 +112,9 @@
             content: feature.get('name')
           });
           $(element).popover('show');
-        } else {
-          $(element).popover('destroy');
-        }
+//        } else {
+//          $(element).popover('destroy');
+//        }
       });
 
       // change mouse cursor when over marker
