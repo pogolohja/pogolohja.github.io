@@ -9,10 +9,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <style>
-//      .map {
-//        height: 700px;
-//        width: 100%;
-//      }
+      .map {
+        height: 700px;
+        width: 100%;
+      }
       #map {
         position: relative;
       }
@@ -92,7 +92,7 @@
         element: element,
         positioning: 'bottom-center',
         stopEvent: false,
-        offset: [0, -50]
+        offset: [0, 0]
       });
       map.addOverlay(popup);
 
@@ -104,12 +104,11 @@
           });
         if (feature) {
           var coordinates = feature.getGeometry().getCoordinates();
-console.log(coordinates);
-console.log(feature.get('name'));
           popup.setPosition(coordinates);
           $(element).popover({
             placement: 'top',
             html: true,
+            title: 'Title',
             content: feature.get('name')
           });
           $(element).popover('show');
