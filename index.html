@@ -52,7 +52,7 @@
           eggFeatures.push(new ol.Feature({ geometry: new ol.geom.Point(ol.proj.fromLonLat(
             [parseInt(long[0], 10) + parseInt(long[1], 10) / Math.pow(10, long[1].length),
             parseInt(lat[0], 10) + parseInt(lat[1], 10) / Math.pow(10, lat[1].length)]
-          )) , title: 'Raid egg' , text: long }));
+          )) , title: 'Tier ' + params[0] + ' egg' , text: long }));
           var eggtier = 'egg5.png';
           if ((params[0] == '1') || (params[0] == '2')) { eggtier = 'egg12.png'; }
           if ((params[0] == '3') || (params[0] == '4')) { eggtier = 'egg34.png'; }
