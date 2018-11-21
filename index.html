@@ -124,7 +124,7 @@
 
       // display popup on click
       map.on('click', function(evt) {
-        $(element).popover('destroy');
+        $(element).popover('dispose');
         var feature = map.forEachFeatureAtPixel(evt.pixel,
           function(feature) {
             return feature;
@@ -139,6 +139,8 @@
             content: feature.get('text')
           });
           $(element).popover('show');
+        } else {
+          $(element).popover('dispose');
         }
       });
 
