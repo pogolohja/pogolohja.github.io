@@ -76,7 +76,7 @@
               image: new ol.style.Icon(/** @type {module:ol/style/Icon~Options} */ ({
                 crossOrigin: 'anonymous',
                 src: 'stardust.png',
-                scale: 0.5
+                scale: 0.2
               }))
             }));
       }
@@ -124,7 +124,7 @@
 
       // display popup on click
       map.on('click', function(evt) {
-        $(element).popover('dispose');
+//        $(element).popover('dispose');
         var feature = map.forEachFeatureAtPixel(evt.pixel,
           function(feature) {
             return feature;
