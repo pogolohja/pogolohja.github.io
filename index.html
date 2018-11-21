@@ -65,7 +65,7 @@
             }));
       }
       for (var i = 0; i < dust.length; i++) {
-          var params = eggs[i].split(';');
+          var params = dust[i].split(';');
           var long = params[1].split('.');
           var lat = params[2].split('.');
           dustFeatures.push(new ol.Feature({ geometry: new ol.geom.Point(ol.proj.fromLonLat(
