@@ -72,7 +72,7 @@
             [parseInt(long[0], 10) + parseInt(long[1], 10) / Math.pow(10, long[1].length),
             parseInt(lat[0], 10) + parseInt(lat[1], 10) / Math.pow(10, lat[1].length)]
           ))  , title: params[0] + ' Stardust' , content: long }));
-          eggFeatures[i].setStyle(new ol.style.Style({
+          dustFeatures[i].setStyle(new ol.style.Style({
               image: new ol.style.Icon(/** @type {module:ol/style/Icon~Options} */ ({
                 crossOrigin: 'anonymous',
                 src: 'stardust.png',
@@ -134,8 +134,8 @@
           $(element).popover({
             placement: 'top',
             html: true,
-            title: 'Title',
-            content: feature.get('name')
+            title: feature.get('title'),
+            content: feature.get('content')
           });
           $(element).popover('show');
         } else {
