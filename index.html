@@ -42,7 +42,9 @@
 //      document.getElementById("header").innerHTML = getParameterByName('foo');
 
       var eggs = urlParams.getAll('egg');
+      var dust = urlParams.getAll('dust');
       var eggFeatures = [];
+      var dustFeatures = [];
       for (var i = 0; i < eggs.length; i++) {
           var params = eggs[i].split(';');
           var long = params[1].split('.');
@@ -50,7 +52,7 @@
           eggFeatures.push(new ol.Feature({ geometry: new ol.geom.Point(ol.proj.fromLonLat(
             [parseInt(long[0], 10) + parseInt(long[1], 10) / Math.pow(10, long[1].length),
             parseInt(lat[0], 10) + parseInt(lat[1], 10) / Math.pow(10, lat[1].length)]
-            )) , name: 'Test' }));
+            )) , title: 'Raid egg' , content: long }));
           var eggtier = 'egg5.png';
           if ((params[0] == '1') || (params[0] == '2')) { eggtier = 'egg12.png'; }
           if ((params[0] == '3') || (params[0] == '4')) { eggtier = 'egg34.png'; }
@@ -62,15 +64,38 @@
               }))
             }));
       }
+      for (var i = 0; i < dust.length; i++) {
+          var params = eggs[i].split(';');
+          var long = params[1].split('.');
+          var lat = params[2].split('.');
+          dustFeatures.push(new ol.Feature({ geometry: new ol.geom.Point(ol.proj.fromLonLat(
+            [parseInt(long[0], 10) + parseInt(long[1], 10) / Math.pow(10, long[1].length),
+            parseInt(lat[0], 10) + parseInt(lat[1], 10) / Math.pow(10, lat[1].length)]
+          ))  , title: params[0] + ' Stardust' , content: long }));
+          eggFeatures[i].setStyle(new ol.style.Style({
+              image: new ol.style.Icon(/** @type {module:ol/style/Icon~Options} */ ({
+                crossOrigin: 'anonymous',
+                src: 'dust.png',
+                scale: 0.5
+              }))
+            }));
+      }
 
-      var vectorSource = new ol.source.Vector({
+      var eggSource = new ol.source.Vector({
         features: eggFeatures
       });
 
-      var vectorLayer = new ol.layer.Vector({
-        source: vectorSource
+      var dustSource = new ol.source.Vector({
+        features: dustFeatures
       });
 
+      var eggLayer = new ol.layer.Vector({
+        source: eggSource
+      });
+
+      var dustLayer = new ol.layer.Vector({
+        source: dustSource
+      });
 
       var map = new ol.Map({
         target: document.getElementById('map'),
@@ -78,7 +103,8 @@
           new ol.layer.Tile({
             source: new ol.source.OSM()
           }),
-          vectorLayer
+          eggLayer,
+          dustLayer
         ],
         view: new ol.View({
           center: ol.proj.fromLonLat([24.05, 60.23]),
